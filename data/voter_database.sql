@@ -40,17 +40,17 @@ rank
 create table voters (
     id int PRIMARY KEY NOT NULL,
     name varchar(150),
-    email_address varchar(150),
-    status tinyint
+    email varchar(150),
+    enabled tinyint
 );
 
-create table voter_options (
+create table options (
     id int PRIMARY KEY NOT NULL,
     name varchar(150),
     description varchar(255)
 );
 
-create table election (
+create table elections (
     id int PRIMARY KEY NOT NULL,
     name varchar(150),
     description varchar(255),
@@ -58,22 +58,16 @@ create table election (
     end_time datetime
 );
 
-create table election_voter_options (
+create table election_option_map (
     id int PRIMARY KEY NOT NULL,
     election_id int NOT NULL,
-    voter_options_id int NOT NULL
+    option_id int NOT NULL
 );
 
-create table election_voter_options (
-    id int PRIMARY KEY NOT NULL,
-    election_id int NOT NULL,
-    voter_options_id int NOT NULL 
-);
-
-create table election_votes (
+create table votes (
     id int PRIMARY KEY NOT NULL,
     election_id int NOT NULL,
     voter_id int NOT NULL,
-    voter_option_id int NOT NULL,
+    option_id int NOT NULL,
     rank tinyint NOT NULL
 );
