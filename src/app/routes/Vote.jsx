@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import Choices from '../components/Choices.jsx';
+import Choices from '../components/Choices';
 import RaisedButton from 'material-ui/RaisedButton';
 
 class Vote extends Component {

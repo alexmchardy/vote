@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Choice from './Choice.jsx';
+import Choice from './Choice';
 
 class Choices extends Component {
   choices = [

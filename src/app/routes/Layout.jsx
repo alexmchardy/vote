@@ -17,17 +17,18 @@ const styles = {
   },
 };
 
-const muiTheme = getMuiTheme({
-  palette: {
-    accent1Color: deepOrange500,
-  },
-});
-
 class Layout extends Component {
+
+  muiTheme = getMuiTheme({
+    //userAgent: this.props.userAgent,
+    palette: {
+      accent1Color: deepOrange500,
+    },
+  });
 
   render() {
     return (
-      <MuiThemeProvider muiTheme={muiTheme}>
+      <MuiThemeProvider muiTheme={this.muiTheme}>
         <div>
           <header>
           <ul>

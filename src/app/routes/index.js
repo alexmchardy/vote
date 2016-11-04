@@ -1,9 +1,9 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import Layout from './Layout.jsx';
-import Home from './Home.jsx';
-import Vote from './Vote.jsx';
-import Election from './Election.jsx';
+import Layout from './Layout';
+import Home from './Home';
+import Vote from './Vote';
+import Election from './Election';
 
 export default (
   <Route path="/" component={Layout}>
