@@ -1,12 +1,33 @@
 import React, {Component} from 'react';
 import Choice from './Choice';
 
+const fakeData = {
+  "id": 1,
+  "name": "some name",
+  "description": "some description",
+  "start_time": null,
+  "end_time": null,
+  "options": [
+    {
+      "optionId": 1,
+      "optionName": "Lucille's",
+      "optionDescription": "Best Cajun food this side of the mississipi"
+    },
+    {
+      "optionId": 2,
+      "optionName": "Jerusalem",
+      "optionDescription": "Holla"
+    },
+    {
+      "optionId": 3,
+      "optionName": "Ted Cheesesteaks",
+      "optionDescription": "Heart stopping"
+    }
+  ]
+};
+
 class Choices extends Component {
-  choices = [
-    { id: 0, name: "Maggiannos" },
-    { id: 1, name: "Pig Wings" },
-    { id: 2, name: "Thai Monkey" }
-  ];
+  choices = fakeData.options
 
   state = {
     selections: {

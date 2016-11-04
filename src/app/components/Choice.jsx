@@ -7,7 +7,12 @@ class Choice extends Component {
 
   render() {
     const menuItems = this.props.options.map((option) =>
-      <MenuItem key={option.id} value={option.id} primaryText={option.name} />
+      <MenuItem
+        key={option.optionId}
+        value={option.optionId}
+        primaryText={option.optionName}
+        // secondaryText={option.optionDescription}
+      />
     );
     return (
       <div>
