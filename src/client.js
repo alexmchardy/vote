@@ -4,12 +4,11 @@ import { createStore, combineReducers } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import { configureStore } from './app/store';
 import routes from './app/routes';
 
-import mainCss from './www/main.css';
+import mainCss from './static/main.css';
 
 // import reducers from './reducers';
 
@@ -24,10 +23,6 @@ import mainCss from './www/main.css';
 // Create an enhanced history that syncs navigation events with the store
 const store = configureStore(browserHistory, window.__initialState__);
 const history = syncHistoryWithStore(browserHistory, store);
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 // Render the main app react component into the app div.
 // For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render

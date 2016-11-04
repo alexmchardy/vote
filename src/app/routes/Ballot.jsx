@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Choices from '../components/Choices';
 import RaisedButton from 'material-ui/RaisedButton';
 
-class Vote extends Component {
+class Ballot extends Component {
   constructor(props) {
     super(props);
   }
@@ -11,7 +11,7 @@ class Vote extends Component {
   render() {
     return (
       <div>
-        <h2>Vote Page</h2>
+        <h2>Ballot Page</h2>
         <Choices />
         <RaisedButton
           label="Vote"
@@ -21,4 +21,4 @@ class Vote extends Component {
   }
 }
 
-export default Vote;
+export default Ballot;

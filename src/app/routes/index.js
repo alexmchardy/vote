@@ -2,13 +2,13 @@ import React from 'react';
 import { IndexRoute, Route } from 'react-router';
 import Layout from './Layout';
 import Home from './Home';
-import Vote from './Vote';
+import Ballot from './Ballot';
 import Election from './Election';
 
 export default (
   <Route path="/" component={Layout}>
     <IndexRoute component={Home} />
-    <Route path="vote/:id" component={Vote} />
+    <Route path="ballot/:id" component={Ballot} />
     <Route path="election" component={Election} />
   </Route>
 );
