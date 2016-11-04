@@ -23,18 +23,18 @@ export function getElection(electionId, cb) {
   db.serialize(function() {
     db.all(`
     SELECT
-      election.id as electionId,
-      election.name as electionName,
-      election.description as electionDescription,
+      elections.id as electionId,
+      elections.name as electionName,
+      elections.description as electionDescription,
       start_time,
       end_time,
-      evo.voter_options_id,
-      vo.id as optionId,
-      vo.name as optionName,
-      vo.description as optionDescription
-    FROM election
-    LEFT JOIN election_voter_options evo ON evo.election_id = election.id
-    LEFT JOIN voter_options vo ON vo.id = evo.voter_options_id
+      map.option_id,
+      options.id as optionId,
+      options.name as optionName,
+      options.description as optionDescription
+    FROM elections
+    LEFT JOIN election_option_map map ON map.election_id = elections.id
+    LEFT JOIN options ON options.id = map.option_id
     `, function(err, results) {
       if (err) {
         cb(null, { error: err });
@@ -76,7 +76,7 @@ export function submitVote(details) {
   details = {
     electionId: 1,
     userId: 1,
-    options: {[
+    options: [
       option: {
         id: 1,
         rank: 2
@@ -89,7 +89,7 @@ export function submitVote(details) {
         id: 2,
         rank: 3
       },
-    ]}
+    ]
   };
 
   const {
