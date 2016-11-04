@@ -1,4 +1,4 @@
-import { getElection } from '../models/elections';
+import { getElection, submitVote } from '../models/elections';
 
 export default {
 
@@ -14,5 +14,15 @@ export default {
       console.log("result:", result);
       res.json(result);
     });
+  },
+
+  /**
+   * @param {object} req - http request
+   * @param {object} res - http response
+   * @returns {void}
+   */
+  submitVote: function submitVoteHandler(req, res) {
+    let result = {};
+    result = submitVote(req.body);
   }
 };

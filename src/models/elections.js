@@ -73,24 +73,24 @@ export function addVoterOption(details) {
 }
 
 export function submitVote(details) {
-  details = {
-    electionId: 1,
-    userId: 1,
-    options: [
-      option: {
-        id: 1,
-        rank: 2
-      },
-      option: {
-        id: 3,
-        rank: 1
-      },
-      option: {
-        id: 2,
-        rank: 3
-      },
-    ]
-  };
+  // details = {
+  //   electionId: 1,
+  //   userId: 1,
+  //   options: [
+  //     option: {
+  //       id: 1,
+  //       rank: 2
+  //     },
+  //     option: {
+  //       id: 3,
+  //       rank: 1
+  //     },
+  //     option: {
+  //       id: 2,
+  //       rank: 3
+  //     },
+  //   ]
+  // };
 
   const {
     electionId,
@@ -99,10 +99,10 @@ export function submitVote(details) {
   } = details;
 
   const sql = `
-    INSERT INTO election_votes (
+    INSERT INTO votes (
       election_id,
       voter_id,
-      voter_option_id,
+      option_id,
       rank
     ) VALUES (
       (?), (?) ,(?) ,(?)

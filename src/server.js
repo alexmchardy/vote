@@ -1,11 +1,7 @@
 // From react-router-redux examples/server
 import path from 'path'
 import express from 'express'
-// import serialize from 'serialize-javascript'
-
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackConfig from '../webpack.config'
+import bodyParser from 'body-parser'
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
@@ -18,14 +14,13 @@ import routes from './app/routes'
 
 const app = express()
 
-// app.use(express.static('public'));
 app.use('/public', express.static(path.join(__dirname, 'public')));
-// app.use(webpackDevMiddleware(webpack(webpackConfig), {
-//   publicPath: '/__build__/',
-//   stats: {
-//     colors: true
-//   }
-// }))
+
+// Endpoints
+import election from './controllers/elections';
+app.use(bodyParser.json());
+app.get('/api/vote', election.vote);
+app.post('/api/vote', election.submitVote);
 
 const fontScript = `
         var WebFontConfig = {
@@ -58,12 +53,10 @@ const HTML = ({ content, store }) => (
 
 app.use(function (req, res) {
   const userAgent = req.headers['user-agent'];
-  console.log('USERAGENT: ', userAgent);
   const memoryHistory = createMemoryHistory(req.url)
   const store = configureStore(memoryHistory)
   const history = syncHistoryWithStore(memoryHistory, store)
 
-  console.log('location: ', req.url);
   match({ history, routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message)
@@ -76,7 +69,6 @@ app.use(function (req, res) {
         </Provider>
       )
 
-      console.log('res.send');
       res.send('<!doctype html>\n' + renderToString(<HTML content={content} store={store}/>))
     }
   })
