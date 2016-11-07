@@ -42,7 +42,7 @@ class Ballot extends Component {
   }
 
   componentDidMount() {
-    request.get('/api/vote')
+    request.get('/api/vote/' + this.props.params.electionId)
       .end((err, res) => {
         this.setState({ vote: (res ? res.body : {}) })
       })

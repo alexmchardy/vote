@@ -19,7 +19,7 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // Endpoints
 import election from './controllers/elections';
 app.use(bodyParser.json());
-app.get('/api/vote', election.vote);
+app.get('/api/vote/:electionId', election.vote);
 app.post('/api/vote', election.submitVote);
 
 const fontScript = `

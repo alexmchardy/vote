@@ -1,9 +1,14 @@
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database(':memory:');
+import path from 'path';
+import sqlite3 from 'sqlite3';
+const sqlite3Client = sqlite3.verbose();
+//var db = new sqlite3.Database(':memory:');
+
+const dbPath = path.resolve(__dirname, '../data/elections');
+const db = new sqlite3Client.Database(dbPath);
 
 function tallyResults(election_id, done){
-  var votes = {};
-  options = new Set();
+  let votes = {};
+  let options = new Set();
 
   db.each("SELECT voter_id, option_id, rank FROM votes WHERE election_id = " + election_id, function(err, row){
     if(!votes[row.voter_id])
@@ -34,6 +39,7 @@ function tallyResults(election_id, done){
     }
 
     Object.keys(votes).forEach(function(key, index){
+      let pos_i, pos_j
       for(var i=0; i<matrix_map.length-1; ++i){
         for(var j=i+1; j<matrix_map.length; ++j){
           pos_i = votes[key].indexOf(matrix_map[i]);
@@ -91,21 +97,25 @@ function tallyResults(election_id, done){
   })
 }
 
-db.serialize(function() {
-  db.run("create table votes (id integer PRIMARY KEY NOT NULL, election_id int NOT NULL, voter_id int NOT NULL, option_id int NOT NULL, rank tinyint NOT NULL)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 6, 3)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 4, 1)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 6, 2)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 5, 2)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 4, 1)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 5, 2)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 5, 3)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 6, 1)");
-  db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 4, 3)");
+// db.serialize(function() {
+//   db.run("create table votes (id integer PRIMARY KEY NOT NULL, election_id int NOT NULL, voter_id int NOT NULL, option_id int NOT NULL, rank tinyint NOT NULL)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 6, 3)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 4, 1)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 6, 2)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 1, 5, 2)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 4, 1)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 5, 2)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 2, 5, 3)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 6, 1)");
+//   db.run("INSERT INTO votes (election_id, voter_id, option_id, rank) VALUES (1, 3, 4, 3)");
+//
+//   tallyResults(1, function(output){
+//     console.log(output);
+//   });
+// });
+//
+// db.close();
 
-  tallyResults(1, function(output){
-    console.log(output);
-  });
+tallyResults(1, function(output){
+  console.log(output);
 });
-
-db.close();

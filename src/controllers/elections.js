@@ -9,8 +9,7 @@ export default {
    */
   vote: function indexHandler(req, res) {
     let result = {};
-    result = getElection(req.id, function(result, err) {
-      console.log("req.id:", req.id);
+    result = getElection(req.params.electionId, function(result, err) {
       console.log("result:", result);
       res.json(result);
     });

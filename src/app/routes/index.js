@@ -8,7 +8,7 @@ import Election from './Election';
 export default (
   <Route path="/" component={Layout}>
     <IndexRoute component={Home} />
-    <Route path="ballot/:id" component={Ballot} />
+    <Route path="ballot/:electionId" component={Ballot} />
     <Route path="election" component={Election} />
   </Route>
 );

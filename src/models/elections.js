@@ -18,7 +18,6 @@ export function createElection(details) {
 * Returns an election and all related metadata
 */
 export function getElection(electionId, cb) {
-  electionId = 1;
   let electionData = {};
   db.serialize(function() {
     db.all(`
@@ -110,7 +109,10 @@ export function submitVote(details) {
   `;
 
   const stmt = db.prepare(sql);
-  forEach(options, function(option) {
+  options.forEach(function(option) {
+    if (option.id === null) {
+      return;
+    }
     stmt.run(electionId, userId, option.id, option.rank);
   });
   stmt.finalize();
